@@ -28,7 +28,7 @@ export default function LocationFinderServer() {
 
   return (
     <>
-      <h6 style={{'marginBottom':0}}>server component</h6>
+      <h6 style={{'marginBottom':0}}>client component</h6>
       {loading ? 'Loading...': (<>
         <h1 style={{'margin':0}}>Hello from {locationInfo?.City}</h1>
         <p style={{'marginTop':0}}>
