@@ -1,26 +1,19 @@
-"use client";  // used in the child component
-
+'use client';
 import { useState, useEffect } from "react";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@/amplify/data/resource";
+// import { useAuthenticator } from "@aws-amplify/ui-react";
 import "../../app/app.css";
 import { Amplify } from "aws-amplify";
 import outputs from "@/amplify_outputs.json";
 import "@aws-amplify/ui-react/styles.css";
 
-// import { useAuthenticator } from "@aws-amplify/ui-react";
-
 Amplify.configure(outputs);
 
 const client = generateClient<Schema>();
 
-
-
 export default function App() {
-  
-  // Authenticator
   // const { user, signOut } = useAuthenticator();
-  
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
 
   function listTodos() {
@@ -45,14 +38,11 @@ export default function App() {
 
   return (
     <>
-      <h1>Kendra's todos</h1>
+      <h1>Perry's todos</h1>
       <button onClick={createTodo}>+ new</button>
       <ul>
         {todos.map((todo) => (
-          <li key={todo.id}           
-            onClick={() => deleteTodo(todo.id)}>
-              {todo.content}
-          </li>
+          <li key={todo.id} onClick={() => deleteTodo(todo.id)}>{todo.content}</li>
         ))}
       </ul>
       <div>

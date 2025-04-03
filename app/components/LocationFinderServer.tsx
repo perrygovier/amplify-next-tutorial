@@ -1,24 +1,55 @@
-export default async function LocationFinderServer() {
 
-  const response = await fetch('https://apip.cc/json');
-  const locationData = await response.json();
-  console.log(locationData);
-  const locationInfo = locationData;
-
-  const response2 = await fetch(`https://www.7timer.info/bin/astro.php?lon=${locationInfo.Longitude}&lat=${locationInfo.Latitude}&ac=0&unit=metric&output=json&tzshift=0`)
-  const weatherInfo = await response2.json();
+// Import the Packages
 
 
-  return (
-    <>
-      <h6 style={{'marginBottom':0}}>server component</h6>
-      <h1 style={{'margin':0}}>Hello from {locationInfo?.City}</h1>
-      <p style={{'marginTop':0}}>
-        It is currently 
-        &nbsp;<strong>{weatherInfo.dataseries[0].temp2m}</strong> 
-        &nbsp;degrees celcius
-      </p>
-    </>
-  )
+export default async function locationFinderServer() { // maKE THIS A ASYNC FUNCTION
 
+
+        // Getting Location Data
+        const locationResponse = await fetch('https://apip.cc/json');
+        const locationData = await locationResponse.json();
+        console.log(locationData);
+        const locationInfo = locationData;
+
+
+        
+            
+        // Getting Weather Data
+        // Create the API URL
+        const url = "https://www.7timer.info/bin/astro.php?lon="
+            + locationData.Longitude
+            + "&lat="
+            + locationData.Latitude
+            + "&ac=0&unit=metric&output=json&tzshift=0";
+
+        // Call the API
+        const weatherResponse = await fetch(url);
+        const weatherData = await weatherResponse.json();
+        console.log(weatherData);
+
+        const weatherInfo = weatherData;
+
+        
+
+    return (
+        <>
+
+            <h1>Location Finder (Server)</h1>
+            <ul>
+                <li>
+                    Region Data:
+                    <ul>
+                        <li>{locationInfo?.City}, {locationInfo?.RegionName}</li>
+                        <li>{locationInfo?.CountryName}</li>
+                    </ul>
+                </li>
+                <li>
+                    Weather Data:
+                    <ul>
+                        <li>Temperature: {weatherInfo?.dataseries[0].temp2m}° C</li>
+                    </ul>
+                </li>
+            </ul>
+        </>
+    )
 }
